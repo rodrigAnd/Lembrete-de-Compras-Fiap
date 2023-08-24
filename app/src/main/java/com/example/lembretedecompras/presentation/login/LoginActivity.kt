@@ -3,6 +3,8 @@ package com.example.lembretedecompras.presentation.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +14,7 @@ import com.example.lembretedecompras.domain.models.RequestState
 import com.example.lembretedecompras.domain.models.User
 import com.example.lembretedecompras.extensions.hideKeyboard
 import com.example.lembretedecompras.presentation.main.MainActivity
+import com.example.lembretedecompras.presentation.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -49,6 +52,10 @@ class LoginActivity : AppCompatActivity() {
             )
         }
 
+        binding.tvCreateNewAccount.setOnClickListener {
+            startRegister()
+        }
+
         binding.etPassword.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 binding.ivLogin.speed = 2f
@@ -59,6 +66,11 @@ class LoginActivity : AppCompatActivity() {
             }
             binding.ivLogin.playAnimation()
         }
+    }
+
+    private fun startRegister() {
+        val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+        launchSomeActivity.launch(intent)
     }
 
     private fun initViewModel() {
@@ -110,5 +122,18 @@ class LoginActivity : AppCompatActivity() {
 
         binding.containerLogin.startAnimation(animForm)
         binding.ivLogin.startAnimation(animMascot)
+    }
+
+    private val launchSomeActivity = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.let {
+                binding.etEmail.setText(it.getStringExtra("name"))
+            }
+
+        } else {
+            Toast.makeText(this, "Cancelled...", Toast.LENGTH_SHORT).show()
+        }
     }
 }
