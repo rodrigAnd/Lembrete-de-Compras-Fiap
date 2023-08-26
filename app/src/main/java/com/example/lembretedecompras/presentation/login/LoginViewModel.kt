@@ -5,7 +5,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.lembretedecompras.domain.data.repository.UserRepository
-import com.example.lembretedecompras.domain.models.RequestState
+import com.example.lembretedecompras.domain.models.state.RequestState
 import com.example.lembretedecompras.domain.models.User
 
 class LoginViewModel(context: Application) : AndroidViewModel(context) {

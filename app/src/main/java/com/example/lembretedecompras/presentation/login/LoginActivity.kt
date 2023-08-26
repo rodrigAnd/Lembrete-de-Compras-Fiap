@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.lembretedecompras.R
 import com.example.lembretedecompras.databinding.ActivityLoginBinding
-import com.example.lembretedecompras.domain.models.RequestState
+import com.example.lembretedecompras.domain.models.state.RequestState
 import com.example.lembretedecompras.domain.models.User
 import com.example.lembretedecompras.extensions.hideKeyboard
 import com.example.lembretedecompras.presentation.main.MainActivity
@@ -93,7 +93,10 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 is RequestState.Loading -> {}
+
+                is RequestState.NewActivity -> {}
             }
+
 
         }
 
@@ -104,9 +107,15 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 is RequestState.Error -> {
+
                 }
 
                 is RequestState.Loading -> {
+                }
+
+                is RequestState.NewActivity -> {
+                    val intent = Intent(this, RegisterActivity::class.java)
+                    startActivity(intent)
                 }
             }
         })

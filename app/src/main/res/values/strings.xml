@@ -4,4 +4,5 @@
     <string name="strong">Forte</string>
     <string name="medium">Média</string>
     <string name="weak">Fraca</string>
+    <string name="password_invalid">Digite as senhas iguais</string>
 </resources>
